@@ -10,8 +10,8 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QFrame>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
@@ -35,7 +35,7 @@ public:
     QLineEdit *PortEdit;
     QPushButton *ConnectButton;
     QLineEdit *nameEdit;
-    QFrame *frame;
+    QPushButton *VoIPButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -71,11 +71,11 @@ public:
         nameEdit = new QLineEdit(centralwidget);
         nameEdit->setObjectName("nameEdit");
         nameEdit->setGeometry(QRect(180, 130, 113, 24));
-        frame = new QFrame(centralwidget);
-        frame->setObjectName("frame");
-        frame->setGeometry(QRect(170, 80, 231, 141));
-        frame->setFrameShape(QFrame::Shape::StyledPanel);
-        frame->setFrameShadow(QFrame::Shadow::Raised);
+        VoIPButton = new QPushButton(centralwidget);
+        VoIPButton->setObjectName("VoIPButton");
+        VoIPButton->setGeometry(QRect(1170, 520, 111, 111));
+        QIcon icon(QIcon::fromTheme(QIcon::ThemeIcon::CallStart));
+        VoIPButton->setIcon(icon);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -98,6 +98,7 @@ public:
         PortEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "Port Number", nullptr));
         ConnectButton->setText(QCoreApplication::translate("MainWindow", "Connect", nullptr));
         nameEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "Your name", nullptr));
+        VoIPButton->setText(QString());
     } // retranslateUi
 
 };

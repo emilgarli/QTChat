@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-b2d1d783ff212f95ebf0.json",
+					"jsonFile" : "directory-.-Debug-9523a25727ff86b0abab.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.16"
@@ -44,7 +44,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "ChattingApp::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-ChattingApp-Debug-49efaeb15dadb801697d.json",
+					"jsonFile" : "target-ChattingApp-Debug-49d36156b4cc5bc79a60.json",
 					"name" : "ChattingApp",
 					"projectIndex" : 0
 				},

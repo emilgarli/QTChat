@@ -307,6 +307,7 @@
 	],
 	"MOC_INCLUDES" : 
 	[
+		"D:/Source/repos/Libs/portaudio/include",
 		"D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore",
 		"D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include",
 		"D:/Source/repos/Libs/Qt/6.7.2/mingw_64/mkspecs/win32-g++",

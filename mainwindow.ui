@@ -112,20 +112,20 @@
      <string>Your name</string>
     </property>
    </widget>
-   <widget class="QFrame" name="frame">
+   <widget class="QPushButton" name="VoIPButton">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>80</y>
-      <width>231</width>
-      <height>141</height>
+      <x>1170</x>
+      <y>520</y>
+      <width>111</width>
+      <height>111</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::Shape::StyledPanel</enum>
+    <property name="text">
+     <string/>
     </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Raised</enum>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::CallStart"/>
     </property>
    </widget>
   </widget>

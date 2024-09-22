@@ -34,6 +34,8 @@ private slots:
 
     void on_nameEdit_textChanged(const QString &arg1);
 
+    void on_VoIPButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     ConnectionHandler* handler;

@@ -82,7 +82,7 @@ void MainWindow::on_PortEdit_textEdited(const QString &arg1)
 void MainWindow::on_ConnectButton_clicked()
 {
     if(IPAddress != "" && portNumber >= 0){
-        std::thread connectionThread(&ConnectionHandler::connectToPeer, handler, IPAddress, portNumber);
+        std::thread connectionThread(&ConnectionHandler::connectToPeer, handler, IPAddress, portNumber, 1);
         connectionThread.detach();
     }
     else
@@ -100,5 +100,7 @@ void MainWindow::on_nameEdit_textChanged(const QString &arg1)
 void MainWindow::on_VoIPButton_clicked()
 {
     ui->OutWindow->append("Starting voice call...");
+    //Pass 1 as third argument, as this means a voice connection
+    handler->connectToPeer(IPAddress, portNumber, 1);
 }
 

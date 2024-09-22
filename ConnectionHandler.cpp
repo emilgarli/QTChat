@@ -2,15 +2,44 @@
 #include "ConnectionHandler.h"
 #include "Rawsocket.h"
 #include "thread"
+#include "vector"
 
 #define MAX_READ_BUFFER_SIZE 500
 #define DEFAULT_NAME "DefaultUser"
 
+
+
 ConnectionHandler::ConnectionHandler() {
     username = DEFAULT_NAME;
 }
-int ConnectionHandler::connectToPeer(std::string sIPAddress, int iPortNum){
 
+void ConnectionHandler::setUsername(std::string name){
+    username = name;
+}
+static std::vector<std::string> delimitString(const char* buffer, int bufLen, char delimit) {
+    std::vector<std::string> vRet;
+    std::string tempChar = "";
+
+    for (int i = 0; i < bufLen; i++) {
+        if (buffer[i] != delimit) {
+            tempChar += buffer[i]; // Append character to tempChar
+        }
+        else {
+            if (!tempChar.empty()) {
+                vRet.push_back(tempChar); // Store the current string in the vector
+                tempChar = ""; // Reset tempChar for the next substring
+            }
+        }
+    }
+
+    // Push the last substring (if any) after the loop
+    if (!tempChar.empty()) {
+        vRet.push_back(tempChar);
+    }
+
+    return vRet; // Return the vector of substrings
+}
+int ConnectionHandler::connectToPeer(std::string sIPAddress, int iPortNum, int connectionType){
     if(username == DEFAULT_NAME){
         emit updateUI("You must set a username first");
         return 1;
@@ -28,21 +57,41 @@ int ConnectionHandler::connectToPeer(std::string sIPAddress, int iPortNum){
     catch(...){
         emit updateUI("Some error occured when attempting to connect");
     }
-    //First we write our name to the newly connected peer
-    conSock->Write(username.c_str(), username.length());
-    //And then we read their name
+    startComs(conSock, connectionType);
+    return 0;
+}
+
+int ConnectionHandler::startComs(CWizReadWriteSocket* conSock, int connectionType){
     char inBuf[50]{};
     int iRead = 0;
+    std::string clientName = "";
+    std::vector<std::string> peerInfoVec;
+    //First we write our name to the newly connected peer
+    std::string infoString = username + "," + std::to_string(connectionType);
+    conSock->Write(infoString.c_str(), username.length());
+    //And then we read the peer info
+
     while(iRead == 0){
-        //iRead = recv(sock, inBuf, 50, 0);
         iRead = conSock->Read(inBuf, 50, 0);
     }
-    std::string clientName = (std::string)inBuf;
-    emit updateUI(QString::fromStdString("Connected to client: " + clientName));
-    std::thread conThread(&ConnectionHandler::handleConnection, this, conSock, clientName);
-    conThread.detach();
-    emit updateClientList(QString::fromStdString(clientName));
-
+    peerInfoVec = delimitString(inBuf,iRead, ',');
+    //The first element is the name
+    clientName = peerInfoVec.at(0);
+    //Second element is the connection type
+    //0 = text chat, 1 = voice chat, 2 = file transfer
+    if(peerInfoVec.at(1) == "0"){
+        emit updateUI(QString::fromStdString("Connected to client: " + clientName));
+        std::thread conThread(&ConnectionHandler::handleConnection, this, conSock, clientName);
+        conThread.detach();
+        emit updateClientList(QString::fromStdString(clientName));
+        return 0;
+    }
+    else if(peerInfoVec.at(1) == "1"){
+        emit updateUI("Voice chat incomming from " + QString::fromStdString(clientName));
+        ActiveConnection* actCon = new ActiveConnection();
+        std::thread conThread(&ActiveConnection::voiceChatHandler, actCon, conSock, clientName);
+        conThread.detach();
+    }
     return 0;
 }
 int ConnectionHandler::listenThread() {
@@ -57,7 +106,7 @@ int ConnectionHandler::listenThread() {
         return 1;
     }
 
-    // Create listening socket
+    // Create listening socket for chat
     CWizSyncSocket* serversocket = new CWizSyncSocket(17590, SOCK_STREAM);
     emit updateUI("Listening for incoming connections on port 17590...");
 
@@ -82,7 +131,6 @@ int ConnectionHandler::listenThread() {
         char inBuf[50]{};
         int iRead = 0;
         while(iRead == 0){
-            //iRead = recv(sock, inBuf, 50, 0);
             iRead = socket->Read(inBuf, 50, 0);
         }
         std::string clientName = (std::string)inBuf;
@@ -92,10 +140,6 @@ int ConnectionHandler::listenThread() {
         emit updateClientList(QString::fromStdString(clientName));
         //ActiveConnection* connection = new ActiveConnection();
     }
-}
-
-void ConnectionHandler::setUsername(std::string name){
-    username = name;
 }
 
 int ConnectionHandler::handleConnection(CWizReadWriteSocket* socket, std::string clientName){

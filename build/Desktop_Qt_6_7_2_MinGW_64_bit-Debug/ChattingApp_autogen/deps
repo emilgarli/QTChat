@@ -442,6 +442,7 @@ ChattingApp_autogen/timestamp: \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/specfun.h \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/std_abs.h \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/std_function.h \
+	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/std_mutex.h \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_algo.h \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_algobase.h \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_bvector.h \
@@ -468,6 +469,7 @@ ChattingApp_autogen/timestamp: \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/string_view.tcc \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stringfwd.h \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/uniform_int_dist.h \
+	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/unique_lock.h \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/unique_ptr.h \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/unordered_map.h \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/uses_allocator.h \
@@ -478,6 +480,7 @@ ChattingApp_autogen/timestamp: \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/climits \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/clocale \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cmath \
+	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/condition_variable \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstddef \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstdint \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstdio \
@@ -504,6 +507,7 @@ ChattingApp_autogen/timestamp: \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/list \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/map \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/memory \
+	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/mutex \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/new \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/numeric \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/optional \
@@ -769,5 +773,6 @@ ChattingApp_autogen/timestamp: \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/ws2def.h \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wtypes.h \
 	D:/Source/repos/Libs/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wtypesbase.h \
+	D:/Source/repos/Libs/portaudio/include/portaudio.h \
 	D:/Source/repos/ChattingApp/mainwindow.ui \
 	D:/Source/repos/Libs/Qt/Tools/CMake_64/bin/cmake.exe
