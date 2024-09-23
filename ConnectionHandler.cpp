@@ -68,7 +68,7 @@ int ConnectionHandler::startComs(CWizReadWriteSocket* conSock, int connectionTyp
     std::vector<std::string> peerInfoVec;
     //First we write our name to the newly connected peer
     std::string infoString = username + "," + std::to_string(connectionType);
-    conSock->Write(infoString.c_str(), username.length());
+    conSock->Write(infoString.c_str(), infoString.length());
     //And then we read the peer info
 
     while(iRead == 0){
@@ -77,28 +77,19 @@ int ConnectionHandler::startComs(CWizReadWriteSocket* conSock, int connectionTyp
     peerInfoVec = delimitString(inBuf,iRead, ',');
     //The first element is the name
     clientName = peerInfoVec.at(0);
-    //Second element is the connection type
     //0 = text chat, 1 = voice chat, 2 = file transfer
-    if(peerInfoVec.at(1) == "0"){
-        emit updateUI(QString::fromStdString("Connected to client: " + clientName));
-        std::thread conThread(&ConnectionHandler::handleConnection, this, conSock, clientName);
-        conThread.detach();
-        emit updateClientList(QString::fromStdString(clientName));
-        return 0;
-    }
-    else if(peerInfoVec.at(1) == "1"){
-        emit updateUI("Voice chat incomming from " + QString::fromStdString(clientName));
-        ActiveConnection* actCon = new ActiveConnection();
-        std::thread conThread(&ActiveConnection::voiceChatHandler, actCon, conSock, clientName);
-        conThread.detach();
-    }
-    return 0;
+    return dispatchConnectionThreads(conSock, clientName, connectionType);
 }
+
+
 int ConnectionHandler::listenThread() {
     WSADATA wsaData;
     int iResult;
     char readBuf[10] = {};
     int iRead = 0;
+    CWizSyncSocket* serversocket = nullptr;
+    std::vector<std::string> clientInfoVec;
+
     // Initialize Winsock
     iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
     if (iResult != 0) {
@@ -107,7 +98,13 @@ int ConnectionHandler::listenThread() {
     }
 
     // Create listening socket for chat
-    CWizSyncSocket* serversocket = new CWizSyncSocket(17590, SOCK_STREAM);
+    serversocket = new CWizSyncSocket(PRIMARY_PORT, SOCK_STREAM);
+    if (WSAGetLastError() != 0) {
+        emit updateUI("Unable to bind socket to port " + QString::number(PRIMARY_PORT));
+        emit updateUI("Attempting backup listenport " + QString::number(SECONDARY_PORT));
+        serversocket = new CWizSyncSocket(SECONDARY_PORT, SOCK_STREAM);
+        portNumber = SECONDARY_PORT;
+    }
     emit updateUI("Listening for incoming connections on port 17590...");
 
     while (true) {
@@ -133,13 +130,29 @@ int ConnectionHandler::listenThread() {
         while(iRead == 0){
             iRead = socket->Read(inBuf, 50, 0);
         }
-        std::string clientName = (std::string)inBuf;
+        clientInfoVec = delimitString(inBuf,iRead, ',');
+        dispatchConnectionThreads(socket, clientInfoVec.at(0), stoi(clientInfoVec.at(1)));
+    }
+}
+
+int ConnectionHandler::dispatchConnectionThreads(CWizReadWriteSocket* socket, std::string clientName, int connectionType){
+
+    if(connectionType == 0){
         emit updateUI(QString::fromStdString("Connected to client: " + clientName));
         std::thread conThread(&ConnectionHandler::handleConnection, this, socket, clientName);
         conThread.detach();
         emit updateClientList(QString::fromStdString(clientName));
-        //ActiveConnection* connection = new ActiveConnection();
+        return 0;
     }
+    else if(connectionType == 1){
+        emit updateUI("Voice chat incomming from " + QString::fromStdString(clientName));
+        ActiveConnection* actCon = new ActiveConnection();
+        voiceConMap[clientName] = actCon;
+        std::thread conThread(&ActiveConnection::voiceChatHandler, actCon, socket, clientName);
+        conThread.detach();
+        return 0;
+    }
+    return -1;
 }
 
 int ConnectionHandler::handleConnection(CWizReadWriteSocket* socket, std::string clientName){

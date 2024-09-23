@@ -1,0 +1,21 @@
+# ninja log v6
+5	3030	7487992307015883	ChattingApp_autogen/timestamp	97c5f3f58b434498
+5	3030	7487992307015883	ChattingApp_autogen/mocs_compilation.cpp	97c5f3f58b434498
+5	3030	7487992307015883	D:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Release/ChattingApp_autogen/timestamp	97c5f3f58b434498
+5	3030	7487992307015883	D:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Release/ChattingApp_autogen/mocs_compilation.cpp	97c5f3f58b434498
+3065	5530	7487992308759907	CMakeFiles/ChattingApp.dir/Rawsocket.cpp.obj	ee13fa7013a730e3
+3070	7322	7487992308794963	CMakeFiles/ChattingApp.dir/activeconnection.cpp.obj	2dda4c586225f9ed
+3053	7908	7487992308634629	CMakeFiles/ChattingApp.dir/ConnectionHandler.cpp.obj	8413dc4c3ee5258b
+3043	8361	7487992308529440	CMakeFiles/ChattingApp.dir/main.cpp.obj	f974fd489716c431
+3037	8566	7487992308474186	CMakeFiles/ChattingApp.dir/ChattingApp_autogen/mocs_compilation.cpp.obj	146d2abac214a8a8
+3049	9321	7487992308589386	CMakeFiles/ChattingApp.dir/mainwindow.cpp.obj	8bc069b3f5280461
+9321	9503	7487992371318452	ChattingApp.exe	922a32c66113d05f
+9	1168	7488059006110193	ChattingApp_autogen/timestamp	97c5f3f58b434498
+9	1168	7488059006110193	ChattingApp_autogen/mocs_compilation.cpp	97c5f3f58b434498
+9	1168	7488059006110193	D:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Release/ChattingApp_autogen/timestamp	97c5f3f58b434498
+9	1168	7488059006110193	D:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Release/ChattingApp_autogen/mocs_compilation.cpp	97c5f3f58b434498
+1176	4611	7488059006770654	CMakeFiles/ChattingApp.dir/ConnectionHandler.cpp.obj	8413dc4c3ee5258b
+1171	4789	7488059006720735	CMakeFiles/ChattingApp.dir/main.cpp.obj	f974fd489716c431
+1168	4973	7488059006690565	CMakeFiles/ChattingApp.dir/ChattingApp_autogen/mocs_compilation.cpp.obj	146d2abac214a8a8
+1173	5468	7488059006750653	CMakeFiles/ChattingApp.dir/mainwindow.cpp.obj	8bc069b3f5280461
+5469	5611	7488059049698748	ChattingApp.exe	922a32c66113d05f

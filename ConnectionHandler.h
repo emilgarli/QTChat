@@ -6,7 +6,8 @@
 #include <winsock2.h>
 #include "activeconnection.h"
 #include "map"
-
+#define PRIMARY_PORT 17590
+#define SECONDARY_PORT 17591
 
 class ConnectionHandler : public QObject
 {
@@ -23,11 +24,14 @@ public:
     std::map<std::string, ActiveConnection*> getConMap(){return conMap;}
     void setUsername(std::string name);
     int startComs(CWizReadWriteSocket* conSock, int connectionType);
+    int dispatchConnectionThreads(CWizReadWriteSocket* socket, std::string clientName, int connectionType);
 
 private:
     std::map<std::string, ActiveConnection*> conMap;
+    std::map<std::string, ActiveConnection*> voiceConMap;
     std::string messageToSend;
     std::string username;
+    int portNumber = PRIMARY_PORT;
 signals:
     void updateUI(const QString &message);
     void updateClientList(const QString &clientName);
