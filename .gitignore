@@ -1,3 +1,10 @@
+#Crypto files
+*.pem
+*.crt
+*.key
+*.pfx
+*.crt
+
 # Prerequisites
 *.d
 
