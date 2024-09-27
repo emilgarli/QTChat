@@ -5,17 +5,18 @@
 #include "Rawsocket.h"
 #include "portaudio.h"
 #include "mutex"
+#include "cwizsslsocket.h"
 #include "condition_variable"
 class ActiveConnection : public QObject
 {
     Q_OBJECT
 public:
-    explicit ActiveConnection(QObject *parent = nullptr, CWizReadWriteSocket* hSocket = nullptr);
+    explicit ActiveConnection(QObject *parent = nullptr, CWizSSLSocket* hSocket = nullptr);
     int readHandler(char* inBuf, int bufLen);
     int writeHandler(const char* outBuf, int bufLen);
     void setName(std::string conName){name=conName;}
     std::string getName(){return name;}
-    int voiceChatHandler(CWizReadWriteSocket* socket, std::string clientName);
+    int voiceChatHandler(CWizSSLSocket* socket, std::string clientName);
     static int paCallback(const void* inputBuffer,
                           void* outputBuffer,
                           unsigned long framesPerBuffer,
@@ -27,7 +28,7 @@ public:
                      std::condition_variable& bufferCv);
     int audioTransmitter();
 private:
-    CWizReadWriteSocket* socket;
+    CWizSSLSocket* socket;
     std::string name;
     std::vector<char> audioBuffer_;
     std::mutex bufferMutex_;

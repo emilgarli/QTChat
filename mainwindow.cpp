@@ -43,11 +43,14 @@ void MainWindow::on_SendButton_clicked()
 
     // Ensure currentClient is valid and exists in the map
     if (conMap.find(currentClient) != conMap.end()) {
-        QString message = ui->sendEdit->toPlainText();
+        if(ui->sendEdit->toPlainText()!=""){
+            QString message = ui->sendEdit->toPlainText();
 
-        conMap[currentClient]->writeHandler(message.toStdString().c_str(), message.length());
-        ui->OutWindow->append("[YOU]: " + message);
-        ui->sendEdit->clear();
+            conMap[currentClient]->writeHandler(message.toStdString().c_str(), message.length());
+            ui->OutWindow->append("[YOU]: " + message);
+            ui->sendEdit->clear();
+        }
+
     } else {
         // Handle case where currentClient is not found in conMap
         ui->OutWindow->append("No active connection for the selected client.");

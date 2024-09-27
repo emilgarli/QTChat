@@ -1,6 +1,6 @@
 // ConnectionHandler.cpp
 #include "ConnectionHandler.h"
-#include "Rawsocket.h"
+
 #include "thread"
 #include "vector"
 
@@ -44,7 +44,7 @@ int ConnectionHandler::connectToPeer(std::string sIPAddress, int iPortNum, int c
         emit updateUI("You must set a username first");
         return 1;
     }
-    CWizReadWriteSocket* conSock = new CWizReadWriteSocket();
+    CWizSSLSocket* conSock = new CWizSSLSocket(false);
 
     //Need to convert the IP address to LPCTSTR, because rawsocket is oldschool
     std::wstring wstr = std::wstring(sIPAddress.begin(), sIPAddress.end());
@@ -52,6 +52,8 @@ int ConnectionHandler::connectToPeer(std::string sIPAddress, int iPortNum, int c
         if(!conSock->Connect(wstr.c_str(), iPortNum)){
             emit updateUI("Failed to connect to " + QString::number(iPortNum) + " at " + QString::fromStdString(sIPAddress));
             return 1;
+            conSock->SetSocket(conSock->H());
+            conSock->SSL_Connect();
         }
     }
     catch(...){
@@ -61,7 +63,7 @@ int ConnectionHandler::connectToPeer(std::string sIPAddress, int iPortNum, int c
     return 0;
 }
 
-int ConnectionHandler::startComs(CWizReadWriteSocket* conSock, int connectionType){
+int ConnectionHandler::startComs(CWizSSLSocket* conSock, int connectionType){
     char inBuf[50]{};
     int iRead = 0;
     std::string clientName = "";
@@ -72,7 +74,7 @@ int ConnectionHandler::startComs(CWizReadWriteSocket* conSock, int connectionTyp
     //And then we read the peer info
 
     while(iRead == 0){
-        iRead = conSock->Read(inBuf, 50, 0);
+        iRead = conSock->Read(inBuf, 50);
     }
     peerInfoVec = delimitString(inBuf,iRead, ',');
     //The first element is the name
@@ -106,7 +108,6 @@ int ConnectionHandler::listenThread() {
         portNumber = SECONDARY_PORT;
     }
     emit updateUI("Listening for incoming connections on port 17590...");
-
     while (true) {
         SOCKET sock = serversocket->Accept();
         if (sock == INVALID_SOCKET) {
@@ -114,28 +115,30 @@ int ConnectionHandler::listenThread() {
             continue;
         }
 
-        CWizReadWriteSocket* socket = new CWizReadWriteSocket();
+        CWizSSLSocket* socket = new CWizSSLSocket(true);
+
         if (WSAGetLastError() != 0) {
             emit updateUI("Socket error occurred");
             continue;
         }
 
         socket->SetSocket(sock);
-        emit updateUI("Connection established with client");
+        socket->SSL_Accept();
+        emit updateUI(QString::fromStdString("Connection established with client"));
         //first we send our username
         socket->Write(username.c_str(), username.length());
         //then we read the initial message, which should contain client info
         char inBuf[50]{};
         int iRead = 0;
         while(iRead == 0){
-            iRead = socket->Read(inBuf, 50, 0);
+            iRead = socket->Read(inBuf, 50);
         }
         clientInfoVec = delimitString(inBuf,iRead, ',');
-        dispatchConnectionThreads(socket, clientInfoVec.at(0), stoi(clientInfoVec.at(1)));
+        dispatchConnectionThreads(socket, "balle", 0);// clientInfoVec.at(0) stoi(clientInfoVec.at(1))
     }
 }
 
-int ConnectionHandler::dispatchConnectionThreads(CWizReadWriteSocket* socket, std::string clientName, int connectionType){
+int ConnectionHandler::dispatchConnectionThreads(CWizSSLSocket* socket, std::string clientName, int connectionType){
 
     if(connectionType == 0){
         emit updateUI(QString::fromStdString("Connected to client: " + clientName));
@@ -155,13 +158,14 @@ int ConnectionHandler::dispatchConnectionThreads(CWizReadWriteSocket* socket, st
     return -1;
 }
 
-int ConnectionHandler::handleConnection(CWizReadWriteSocket* socket, std::string clientName){
+int ConnectionHandler::handleConnection(CWizSSLSocket* socket, std::string clientName){
     ActiveConnection* connection = new ActiveConnection(this, socket);
     //Add this connection to the map
     conMap[clientName] = connection;
     connection->setName(clientName);
     //now that this is done, we can stay here and read any message comming to the socket
     while(true){
+        Sleep(100);
         int iRead = 0;
         char inBuf[MAX_READ_BUFFER_SIZE]{};
         iRead = connection->readHandler(inBuf, MAX_READ_BUFFER_SIZE);

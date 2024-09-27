@@ -11,7 +11,7 @@ struct AudioData {
     CWizReadWriteSocket* comSock;
 };
 
-ActiveConnection::ActiveConnection(QObject *parent, CWizReadWriteSocket* hSocket)
+ActiveConnection::ActiveConnection(QObject *parent, CWizSSLSocket* hSocket)
     : QObject{parent}
 {
     socket = hSocket;
@@ -19,9 +19,10 @@ ActiveConnection::ActiveConnection(QObject *parent, CWizReadWriteSocket* hSocket
 
 int ActiveConnection::readHandler(char* inBuf, int bufLen){
     int iRead = 0;
-    iRead = socket->Read(inBuf, bufLen, 0);
+    iRead = socket->Read(inBuf, bufLen);
     return iRead;
 }
+
 int ActiveConnection::writeHandler(const char* outBuf, int bufLen){
     int iWrite = 0;
     iWrite = socket->Write(outBuf, bufLen);
@@ -94,7 +95,7 @@ int ActiveConnection::audioTransmitter(){
 }
 
 
-int ActiveConnection::voiceChatHandler(CWizReadWriteSocket* socket, std::string clientName){
+int ActiveConnection::voiceChatHandler(CWizSSLSocket* socket, std::string clientName){
     PaStream* stream = nullptr;
     AudioData audioData;
     audioData.buffer = &audioBuffer_;

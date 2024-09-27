@@ -275,6 +275,12 @@
 			null
 		],
 		[
+			"D:/Source/repos/ChattingApp/cwizsslsocket.h",
+			"MU",
+			"EWIEGA46WW/moc_cwizsslsocket.cpp",
+			null
+		],
+		[
 			"D:/Source/repos/ChattingApp/mainwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
@@ -308,6 +314,7 @@
 	"MOC_INCLUDES" : 
 	[
 		"D:/Source/repos/Libs/portaudio/include",
+		"D:/Source/repos/Libs/OpenSSL-Win64/include",
 		"D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore",
 		"D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include",
 		"D:/Source/repos/Libs/Qt/6.7.2/mingw_64/mkspecs/win32-g++",
@@ -356,6 +363,7 @@
 		[ "D:/Source/repos/ChattingApp/ConnectionHandler.cpp", "MU", null ],
 		[ "D:/Source/repos/ChattingApp/Rawsocket.cpp", "MU", null ],
 		[ "D:/Source/repos/ChattingApp/activeconnection.cpp", "MU", null ],
+		[ "D:/Source/repos/ChattingApp/cwizsslsocket.cpp", "MU", null ],
 		[ "D:/Source/repos/ChattingApp/main.cpp", "MU", null ],
 		[ "D:/Source/repos/ChattingApp/mainwindow.cpp", "MU", null ]
 	],

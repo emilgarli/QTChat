@@ -1056,6 +1056,7 @@ D:/Source/repos/ChattingApp/activeconnection.h
  mdp:D:/Source/repos/Libs/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wtypes.h
  mdp:D:/Source/repos/Libs/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wtypesbase.h
  mdp:D:/Source/repos/Libs/portaudio/include/portaudio.h
+D:/Source/repos/ChattingApp/cwizsslsocket.h
 D:/Source/repos/ChattingApp/mainwindow.h
  mmc:Q_OBJECT
  mdp:D:/Source/repos/ChattingApp/ConnectionHandler.h
@@ -1660,6 +1661,7 @@ D:/Source/repos/ChattingApp/mainwindow.h
 D:/Source/repos/ChattingApp/ConnectionHandler.cpp
 D:/Source/repos/ChattingApp/Rawsocket.cpp
 D:/Source/repos/ChattingApp/activeconnection.cpp
+D:/Source/repos/ChattingApp/cwizsslsocket.cpp
 D:/Source/repos/ChattingApp/main.cpp
 D:/Source/repos/ChattingApp/mainwindow.cpp
  uic:./ui_mainwindow.h

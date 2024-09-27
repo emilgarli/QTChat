@@ -29,11 +29,13 @@ set(PROJECT_SOURCES
     activeconnection.cpp
 )
 
+
 # Check if Qt version is 6 or greater
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(ChattingApp
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        cwizsslsocket.h cwizsslsocket.cpp
     )
 else()
     if(ANDROID)
@@ -41,6 +43,11 @@ else()
     else()
         add_executable(ChattingApp ${PROJECT_SOURCES})
     endif()
+endif()
+
+# Check the compiler and add the -fpermissive flag
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(ChattingApp PRIVATE -fpermissive)
 endif()
 
 # Link Qt libraries
@@ -55,6 +62,13 @@ include_directories(${CMAKE_SOURCE_DIR}/../libs/portaudio/include)
 
 # Link PortAudio library (assuming it's located in the "release" directory)
 target_link_libraries(ChattingApp PRIVATE ${CMAKE_SOURCE_DIR}/../libs/portaudio/release/portaudio_x64.lib)
+
+#openssl
+include_directories(${CMAKE_SOURCE_DIR}/../libs/OpenSSL-Win64/include)
+target_link_libraries(ChattingApp PRIVATE ${CMAKE_SOURCE_DIR}/../libs/OpenSSL-Win64/lib/VC/x64/MT/libcrypto.lib)
+target_link_libraries(ChattingApp PRIVATE ${CMAKE_SOURCE_DIR}/../libs/OpenSSL-Win64/lib/VC/x64/MT/libssl.lib)
+target_link_libraries(ChattingApp PRIVATE ${CMAKE_SOURCE_DIR}/../libs/OpenSSL-Win64/libcrypto-3-x64.dll)
+target_link_libraries(ChattingApp PRIVATE ${CMAKE_SOURCE_DIR}/../libs/OpenSSL-Win64/libssl-3-x64.dll)
 
 # macOS bundle properties
 if(${QT_VERSION} VERSION_LESS 6.1.0)

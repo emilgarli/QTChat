@@ -6,6 +6,7 @@
 #include <winsock2.h>
 #include "activeconnection.h"
 #include "map"
+#include "cwizsslsocket.h"
 #define PRIMARY_PORT 17590
 #define SECONDARY_PORT 17591
 
@@ -19,12 +20,12 @@ public:
     // Start listening for connections
     int listenThread();
     int connectToPeer(std::string sIPAddress, int iPortNum, int connectionType);
-    int handleConnection(CWizReadWriteSocket* socket, std::string clientName);
-    int voiceChatHandler(CWizReadWriteSocket* socket, std::string clientName);
+    int handleConnection(CWizSSLSocket* socket, std::string clientName);
+    int voiceChatHandler(CWizSSLSocket* socket, std::string clientName);
     std::map<std::string, ActiveConnection*> getConMap(){return conMap;}
     void setUsername(std::string name);
-    int startComs(CWizReadWriteSocket* conSock, int connectionType);
-    int dispatchConnectionThreads(CWizReadWriteSocket* socket, std::string clientName, int connectionType);
+    int startComs(CWizSSLSocket* conSock, int connectionType);
+    int dispatchConnectionThreads(CWizSSLSocket* socket, std::string clientName, int connectionType);
 
 private:
     std::map<std::string, ActiveConnection*> conMap;

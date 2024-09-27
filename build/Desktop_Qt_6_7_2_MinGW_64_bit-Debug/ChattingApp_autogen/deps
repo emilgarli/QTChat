@@ -11,9 +11,79 @@ ChattingApp_autogen/timestamp: \
 	D:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeRCCompiler.cmake \
 	D:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/CMakeFiles/3.29.3/CMakeSystem.cmake \
 	D:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/ChattingApp_autogen/moc_predefs.h \
+	D:/Source/repos/ChattingApp/cwizsslsocket.cpp \
+	D:/Source/repos/ChattingApp/cwizsslsocket.h \
 	D:/Source/repos/ChattingApp/main.cpp \
 	D:/Source/repos/ChattingApp/mainwindow.cpp \
 	D:/Source/repos/ChattingApp/mainwindow.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/asn1.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/asn1err.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/async.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/asyncerr.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/bio.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/bioerr.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/bn.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/bnerr.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/buffer.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/buffererr.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/comp.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/comperr.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/conf.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/conferr.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/configuration.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/conftypes.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/core.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/core_dispatch.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/crypto.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/cryptoerr.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/cryptoerr_legacy.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/ct.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/cterr.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/dh.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/dherr.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/dsa.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/dsaerr.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/dtls1.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/e_os2.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/e_ostime.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/ec.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/ecerr.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/err.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/evp.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/evperr.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/hmac.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/http.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/lhash.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/macros.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/obj_mac.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/objects.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/objectserr.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/opensslconf.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/opensslv.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/params.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/pem.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/pemerr.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/pkcs7.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/pkcs7err.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/prov_ssl.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/quic.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/rsa.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/rsaerr.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/safestack.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/sha.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/srtp.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/ssl.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/ssl2.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/ssl3.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/sslerr.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/sslerr_legacy.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/stack.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/symhacks.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/tls1.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/types.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/x509.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/x509_vfy.h \
+	D:/Source/repos/Libs/OpenSSL-Win64/include/openssl/x509err.h \
 	D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore/QObject \
 	D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore/q20functional.h \
 	D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore/q20memory.h \

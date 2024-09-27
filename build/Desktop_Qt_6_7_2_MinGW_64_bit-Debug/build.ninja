@@ -52,48 +52,56 @@ build cmake_object_order_depends_target_ChattingApp: phony || ChattingApp_autoge
 build CMakeFiles/ChattingApp.dir/ChattingApp_autogen/mocs_compilation.cpp.obj: CXX_COMPILER__ChattingApp_unscanned_Debug D$:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/ChattingApp_autogen/mocs_compilation.cpp || cmake_object_order_depends_target_ChattingApp
   DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
   DEP_FILE = CMakeFiles\ChattingApp.dir\ChattingApp_autogen\mocs_compilation.cpp.obj.d
-  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -ID:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/ChattingApp_autogen/include -ID:/Source/repos/ChattingApp/../libs/portaudio/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/mkspecs/win32-g++ -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtWidgets -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtGui
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fpermissive
+  INCLUDES = -ID:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/ChattingApp_autogen/include -ID:/Source/repos/ChattingApp/../libs/portaudio/include -ID:/Source/repos/ChattingApp/../libs/OpenSSL-Win64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/mkspecs/win32-g++ -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtWidgets -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtGui
   OBJECT_DIR = CMakeFiles\ChattingApp.dir
   OBJECT_FILE_DIR = CMakeFiles\ChattingApp.dir\ChattingApp_autogen
 
 build CMakeFiles/ChattingApp.dir/main.cpp.obj: CXX_COMPILER__ChattingApp_unscanned_Debug D$:/Source/repos/ChattingApp/main.cpp || cmake_object_order_depends_target_ChattingApp
   DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
   DEP_FILE = CMakeFiles\ChattingApp.dir\main.cpp.obj.d
-  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -ID:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/ChattingApp_autogen/include -ID:/Source/repos/ChattingApp/../libs/portaudio/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/mkspecs/win32-g++ -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtWidgets -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtGui
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fpermissive
+  INCLUDES = -ID:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/ChattingApp_autogen/include -ID:/Source/repos/ChattingApp/../libs/portaudio/include -ID:/Source/repos/ChattingApp/../libs/OpenSSL-Win64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/mkspecs/win32-g++ -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtWidgets -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtGui
   OBJECT_DIR = CMakeFiles\ChattingApp.dir
   OBJECT_FILE_DIR = CMakeFiles\ChattingApp.dir
 
 build CMakeFiles/ChattingApp.dir/mainwindow.cpp.obj: CXX_COMPILER__ChattingApp_unscanned_Debug D$:/Source/repos/ChattingApp/mainwindow.cpp || cmake_object_order_depends_target_ChattingApp
   DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
   DEP_FILE = CMakeFiles\ChattingApp.dir\mainwindow.cpp.obj.d
-  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -ID:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/ChattingApp_autogen/include -ID:/Source/repos/ChattingApp/../libs/portaudio/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/mkspecs/win32-g++ -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtWidgets -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtGui
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fpermissive
+  INCLUDES = -ID:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/ChattingApp_autogen/include -ID:/Source/repos/ChattingApp/../libs/portaudio/include -ID:/Source/repos/ChattingApp/../libs/OpenSSL-Win64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/mkspecs/win32-g++ -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtWidgets -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtGui
   OBJECT_DIR = CMakeFiles\ChattingApp.dir
   OBJECT_FILE_DIR = CMakeFiles\ChattingApp.dir
 
 build CMakeFiles/ChattingApp.dir/ConnectionHandler.cpp.obj: CXX_COMPILER__ChattingApp_unscanned_Debug D$:/Source/repos/ChattingApp/ConnectionHandler.cpp || cmake_object_order_depends_target_ChattingApp
   DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
   DEP_FILE = CMakeFiles\ChattingApp.dir\ConnectionHandler.cpp.obj.d
-  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -ID:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/ChattingApp_autogen/include -ID:/Source/repos/ChattingApp/../libs/portaudio/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/mkspecs/win32-g++ -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtWidgets -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtGui
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fpermissive
+  INCLUDES = -ID:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/ChattingApp_autogen/include -ID:/Source/repos/ChattingApp/../libs/portaudio/include -ID:/Source/repos/ChattingApp/../libs/OpenSSL-Win64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/mkspecs/win32-g++ -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtWidgets -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtGui
   OBJECT_DIR = CMakeFiles\ChattingApp.dir
   OBJECT_FILE_DIR = CMakeFiles\ChattingApp.dir
 
 build CMakeFiles/ChattingApp.dir/Rawsocket.cpp.obj: CXX_COMPILER__ChattingApp_unscanned_Debug D$:/Source/repos/ChattingApp/Rawsocket.cpp || cmake_object_order_depends_target_ChattingApp
   DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
   DEP_FILE = CMakeFiles\ChattingApp.dir\Rawsocket.cpp.obj.d
-  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -ID:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/ChattingApp_autogen/include -ID:/Source/repos/ChattingApp/../libs/portaudio/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/mkspecs/win32-g++ -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtWidgets -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtGui
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fpermissive
+  INCLUDES = -ID:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/ChattingApp_autogen/include -ID:/Source/repos/ChattingApp/../libs/portaudio/include -ID:/Source/repos/ChattingApp/../libs/OpenSSL-Win64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/mkspecs/win32-g++ -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtWidgets -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtGui
   OBJECT_DIR = CMakeFiles\ChattingApp.dir
   OBJECT_FILE_DIR = CMakeFiles\ChattingApp.dir
 
 build CMakeFiles/ChattingApp.dir/activeconnection.cpp.obj: CXX_COMPILER__ChattingApp_unscanned_Debug D$:/Source/repos/ChattingApp/activeconnection.cpp || cmake_object_order_depends_target_ChattingApp
   DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
   DEP_FILE = CMakeFiles\ChattingApp.dir\activeconnection.cpp.obj.d
-  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -ID:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/ChattingApp_autogen/include -ID:/Source/repos/ChattingApp/../libs/portaudio/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/mkspecs/win32-g++ -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtWidgets -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtGui
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fpermissive
+  INCLUDES = -ID:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/ChattingApp_autogen/include -ID:/Source/repos/ChattingApp/../libs/portaudio/include -ID:/Source/repos/ChattingApp/../libs/OpenSSL-Win64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/mkspecs/win32-g++ -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtWidgets -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtGui
+  OBJECT_DIR = CMakeFiles\ChattingApp.dir
+  OBJECT_FILE_DIR = CMakeFiles\ChattingApp.dir
+
+build CMakeFiles/ChattingApp.dir/cwizsslsocket.cpp.obj: CXX_COMPILER__ChattingApp_unscanned_Debug D$:/Source/repos/ChattingApp/cwizsslsocket.cpp || cmake_object_order_depends_target_ChattingApp
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NEEDS_QMAIN -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\ChattingApp.dir\cwizsslsocket.cpp.obj.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fpermissive
+  INCLUDES = -ID:/Source/repos/ChattingApp/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/ChattingApp_autogen/include -ID:/Source/repos/ChattingApp/../libs/portaudio/include -ID:/Source/repos/ChattingApp/../libs/OpenSSL-Win64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtCore -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/mkspecs/win32-g++ -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtWidgets -isystem D:/Source/repos/Libs/Qt/6.7.2/mingw_64/include/QtGui
   OBJECT_DIR = CMakeFiles\ChattingApp.dir
   OBJECT_FILE_DIR = CMakeFiles\ChattingApp.dir
 
@@ -105,10 +113,10 @@ build CMakeFiles/ChattingApp.dir/activeconnection.cpp.obj: CXX_COMPILER__Chattin
 #############################################
 # Link the executable ChattingApp.exe
 
-build ChattingApp.exe: CXX_EXECUTABLE_LINKER__ChattingApp_Debug CMakeFiles/ChattingApp.dir/ChattingApp_autogen/mocs_compilation.cpp.obj CMakeFiles/ChattingApp.dir/main.cpp.obj CMakeFiles/ChattingApp.dir/mainwindow.cpp.obj CMakeFiles/ChattingApp.dir/ConnectionHandler.cpp.obj CMakeFiles/ChattingApp.dir/Rawsocket.cpp.obj CMakeFiles/ChattingApp.dir/activeconnection.cpp.obj | D$:/Source/repos/Libs/Qt/6.7.2/mingw_64/lib/libQt6Widgets.a D$:/Source/repos/ChattingApp/../libs/portaudio/release/portaudio_x64.lib D$:/Source/repos/Libs/Qt/6.7.2/mingw_64/lib/libQt6Gui.a D$:/Source/repos/Libs/Qt/6.7.2/mingw_64/lib/libQt6Core.a D$:/Source/repos/Libs/Qt/6.7.2/mingw_64/lib/libQt6EntryPoint.a || ChattingApp_autogen ChattingApp_autogen_timestamp_deps
+build ChattingApp.exe: CXX_EXECUTABLE_LINKER__ChattingApp_Debug CMakeFiles/ChattingApp.dir/ChattingApp_autogen/mocs_compilation.cpp.obj CMakeFiles/ChattingApp.dir/main.cpp.obj CMakeFiles/ChattingApp.dir/mainwindow.cpp.obj CMakeFiles/ChattingApp.dir/ConnectionHandler.cpp.obj CMakeFiles/ChattingApp.dir/Rawsocket.cpp.obj CMakeFiles/ChattingApp.dir/activeconnection.cpp.obj CMakeFiles/ChattingApp.dir/cwizsslsocket.cpp.obj | D$:/Source/repos/Libs/Qt/6.7.2/mingw_64/lib/libQt6Widgets.a D$:/Source/repos/ChattingApp/../libs/portaudio/release/portaudio_x64.lib D$:/Source/repos/ChattingApp/../libs/OpenSSL-Win64/lib/VC/x64/MT/libcrypto.lib D$:/Source/repos/ChattingApp/../libs/OpenSSL-Win64/lib/VC/x64/MT/libssl.lib D$:/Source/repos/ChattingApp/../libs/OpenSSL-Win64/libcrypto-3-x64.dll D$:/Source/repos/ChattingApp/../libs/OpenSSL-Win64/libssl-3-x64.dll D$:/Source/repos/Libs/Qt/6.7.2/mingw_64/lib/libQt6Gui.a D$:/Source/repos/Libs/Qt/6.7.2/mingw_64/lib/libQt6Core.a D$:/Source/repos/Libs/Qt/6.7.2/mingw_64/lib/libQt6EntryPoint.a || ChattingApp_autogen ChattingApp_autogen_timestamp_deps
   FLAGS = -DQT_QML_DEBUG -g
   LINK_FLAGS = -mwindows
-  LINK_LIBRARIES = D:/Source/repos/Libs/Qt/6.7.2/mingw_64/lib/libQt6Widgets.a  -lws2_32  D:/Source/repos/ChattingApp/../libs/portaudio/release/portaudio_x64.lib  D:/Source/repos/Libs/Qt/6.7.2/mingw_64/lib/libQt6Gui.a  D:/Source/repos/Libs/Qt/6.7.2/mingw_64/lib/libQt6Core.a  -lmpr  -luserenv  -lmingw32  D:/Source/repos/Libs/Qt/6.7.2/mingw_64/lib/libQt6EntryPoint.a  -lshell32  -ld3d11  -ldxgi  -ldxguid  -ld3d12  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = D:/Source/repos/Libs/Qt/6.7.2/mingw_64/lib/libQt6Widgets.a  -lws2_32  D:/Source/repos/ChattingApp/../libs/portaudio/release/portaudio_x64.lib  D:/Source/repos/ChattingApp/../libs/OpenSSL-Win64/lib/VC/x64/MT/libcrypto.lib  D:/Source/repos/ChattingApp/../libs/OpenSSL-Win64/lib/VC/x64/MT/libssl.lib  D:/Source/repos/ChattingApp/../libs/OpenSSL-Win64/libcrypto-3-x64.dll  D:/Source/repos/ChattingApp/../libs/OpenSSL-Win64/libssl-3-x64.dll  D:/Source/repos/Libs/Qt/6.7.2/mingw_64/lib/libQt6Gui.a  D:/Source/repos/Libs/Qt/6.7.2/mingw_64/lib/libQt6Core.a  -lmpr  -luserenv  -lmingw32  D:/Source/repos/Libs/Qt/6.7.2/mingw_64/lib/libQt6EntryPoint.a  -lshell32  -ld3d11  -ldxgi  -ldxguid  -ld3d12  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\ChattingApp.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
