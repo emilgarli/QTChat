@@ -121,6 +121,9 @@
       <height>111</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Start a call</string>
+    </property>
     <property name="text">
      <string/>
     </property>

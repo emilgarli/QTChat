@@ -16,6 +16,8 @@ ConnectionHandler::ConnectionHandler() {
 void ConnectionHandler::setUsername(std::string name){
     username = name;
 }
+
+//Helper function to delimit the given string on a given character. returns a vector with the elements
 static std::vector<std::string> delimitString(const char* buffer, int bufLen, char delimit) {
     std::vector<std::string> vRet;
     std::string tempChar = "";
@@ -39,6 +41,8 @@ static std::vector<std::string> delimitString(const char* buffer, int bufLen, ch
 
     return vRet; // Return the vector of substrings
 }
+
+//Connects to the given IP and port number. connection type is: 0 = text chat, 1 = voice chat, 2 = file transfer
 int ConnectionHandler::connectToPeer(std::string sIPAddress, int iPortNum, int connectionType){
     if(username == DEFAULT_NAME){
         emit updateUI("You must set a username first");
@@ -62,7 +66,7 @@ int ConnectionHandler::connectToPeer(std::string sIPAddress, int iPortNum, int c
     startComs(conSock, connectionType);
     return 0;
 }
-
+//This methods reads info about the newly connected client, and writes info about us to the client
 int ConnectionHandler::startComs(CWizSSLSocket* conSock, int connectionType){
     char inBuf[50]{};
     int iRead = 0;
@@ -83,7 +87,8 @@ int ConnectionHandler::startComs(CWizSSLSocket* conSock, int connectionType){
     return dispatchConnectionThreads(conSock, clientName, connectionType);
 }
 
-
+//Listens for incomming connections on PRIMARY_PORT or SECONDARY_PORT
+//It writes and reads client info to/from any newly connected client
 int ConnectionHandler::listenThread() {
     WSADATA wsaData;
     int iResult;
@@ -134,7 +139,7 @@ int ConnectionHandler::listenThread() {
             iRead = socket->Read(inBuf, 50);
         }
         clientInfoVec = delimitString(inBuf,iRead, ',');
-        dispatchConnectionThreads(socket, "balle", 0);// clientInfoVec.at(0) stoi(clientInfoVec.at(1))
+        dispatchConnectionThreads(socket, clientInfoVec.at(0) ,stoi(clientInfoVec.at(1)));
     }
 }
 
@@ -175,11 +180,13 @@ int ConnectionHandler::handleConnection(CWizSSLSocket* socket, std::string clien
             emit updateUI("[" + QString::fromStdString(clientName) + "]: " + QString::fromStdString(inBuf));
         }
         else if(iRead < 0){
-            //emit updateUI("Connection dropped. Error: " + QString::fromStdString(GetLastSocketErrorText().c_str()));
+            //Client has disconnected
             emit updateUI(QString::fromStdString("Client " + clientName+ " disconnected."));
             iRet = -1;
             emit removeFromClientList(QString::fromStdString(clientName));
             conMap.erase("clientName");
+            delete socket;
+            delete connection;
             break;
         }
     }

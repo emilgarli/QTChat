@@ -103,6 +103,9 @@ public:
         PortEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "Port Number", nullptr));
         ConnectButton->setText(QCoreApplication::translate("MainWindow", "Connect", nullptr));
         nameEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "Your name", nullptr));
+#if QT_CONFIG(tooltip)
+        VoIPButton->setToolTip(QCoreApplication::translate("MainWindow", "Start a call", nullptr));
+#endif // QT_CONFIG(tooltip)
         VoIPButton->setText(QString());
         ActiveVoice->setText(QString());
     } // retranslateUi
