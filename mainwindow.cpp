@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Connect signal from ConnectionHandler to MainWindow slot
     connect(handler, &ConnectionHandler::updateUI, this, &MainWindow::handleUpdateUI);
     connect(handler, &ConnectionHandler::updateClientList, this, &MainWindow::handleUpdateClientList);
+    connect(handler, &ConnectionHandler::removeFromClientList, this, &MainWindow::handleRemoveFromClientList);
     // Start the thread
     thread->start();
 }
@@ -27,13 +28,24 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::handleUpdateUI(const QString &message) {
-    // Safely update the UI from the signal
-    ui->OutWindow->append(message);
+void MainWindow::handleRemoveFromClientList(const QString &clientName) {
+    // Find the item with the text matching clientName
+    QList<QListWidgetItem *> items = ui->clientsListWidget->findItems(clientName, Qt::MatchExactly);
+
+    // If any item is found, remove it
+    if (!items.isEmpty()) {
+        delete ui->clientsListWidget->takeItem(ui->clientsListWidget->row(items[0]));
+    }
 }
+
 
 void MainWindow::handleUpdateClientList(const QString &message) {
     ui->clientsListWidget->addItem(message);
+}
+
+void MainWindow::handleUpdateUI(const QString &message) {
+    // Safely update the UI from the signal
+    ui->OutWindow->append(message);
 }
 
 void MainWindow::on_SendButton_clicked()

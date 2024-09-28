@@ -2,7 +2,6 @@
 #define ACTIVECONNECTION_H
 #pragma once
 #include <QObject>
-#include "Rawsocket.h"
 #include "portaudio.h"
 #include "mutex"
 #include "cwizsslsocket.h"

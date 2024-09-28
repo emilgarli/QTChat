@@ -159,6 +159,7 @@ int ConnectionHandler::dispatchConnectionThreads(CWizSSLSocket* socket, std::str
 }
 
 int ConnectionHandler::handleConnection(CWizSSLSocket* socket, std::string clientName){
+    int iRet = 0;
     ActiveConnection* connection = new ActiveConnection(this, socket);
     //Add this connection to the map
     conMap[clientName] = connection;
@@ -173,9 +174,14 @@ int ConnectionHandler::handleConnection(CWizSSLSocket* socket, std::string clien
             //and update the UI with anything read.
             emit updateUI("[" + QString::fromStdString(clientName) + "]: " + QString::fromStdString(inBuf));
         }
-
-        else if(!WSAGetLastError()){
-            emit updateUI("Connection dropped. Error: " + QString::fromStdString(GetLastSocketErrorText().c_str()));
+        else if(iRead < 0){
+            //emit updateUI("Connection dropped. Error: " + QString::fromStdString(GetLastSocketErrorText().c_str()));
+            emit updateUI(QString::fromStdString("Client " + clientName+ " disconnected."));
+            iRet = -1;
+            emit removeFromClientList(QString::fromStdString(clientName));
+            conMap.erase("clientName");
+            break;
         }
     }
+    return iRet;
 }

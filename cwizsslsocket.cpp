@@ -1,5 +1,6 @@
 #include "cwizsslsocket.h"
 #include <openssl/applink.c>
+#include <openssl/err.h>
 CWizSSLSocket::CWizSSLSocket(bool bIsServer) {
     isServer = bIsServer;
     create_context();
@@ -62,8 +63,6 @@ void CWizSSLSocket::SetSocket(int socket) {
         exit(EXIT_FAILURE);
     }
 }
-
-#include <openssl/err.h>  // Required for OpenSSL error handling
 
 int CWizSSLSocket::SSL_Accept() {
     configure_server_context(ssl_ctx);

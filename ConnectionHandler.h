@@ -17,7 +17,6 @@ class ConnectionHandler : public QObject
 public:
     ConnectionHandler();
 
-    // Start listening for connections
     int listenThread();
     int connectToPeer(std::string sIPAddress, int iPortNum, int connectionType);
     int handleConnection(CWizSSLSocket* socket, std::string clientName);
@@ -36,6 +35,7 @@ private:
 signals:
     void updateUI(const QString &message);
     void updateClientList(const QString &clientName);
+    void removeFromClientList(const QString &clientName);
 };
 
 #endif // CONNECTIONHANDLER_H

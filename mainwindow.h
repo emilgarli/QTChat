@@ -19,6 +19,7 @@ public:
     ~MainWindow();
     void handleUpdateUI(const QString &message);
     void handleUpdateClientList(const QString &clientName);
+    void handleRemoveFromClientList(const QString &clientName);
     bool voiceActive = false;
 private slots:
     void on_SendButton_clicked();
