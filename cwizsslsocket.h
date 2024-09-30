@@ -8,7 +8,6 @@
 #include <openssl/err.h>
 #include <openssl/bio.h>
 #include <openssl/pem.h>
-
 #if !defined(OPENSSL_SYS_WINDOWS)
 #include <unistd.h>
 #include <sys/socket.h>

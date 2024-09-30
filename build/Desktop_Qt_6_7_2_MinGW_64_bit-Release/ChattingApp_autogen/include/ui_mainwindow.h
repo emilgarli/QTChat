@@ -38,6 +38,7 @@ public:
     QLineEdit *nameEdit;
     QPushButton *VoIPButton;
     QLabel *ActiveVoice;
+    QPushButton *bAddFile;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -46,6 +47,8 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
         MainWindow->resize(1295, 677);
+        QIcon icon(QIcon::fromTheme(QIcon::ThemeIcon::InsertLink));
+        MainWindow->setWindowIcon(icon);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         OutWindow = new QTextEdit(centralwidget);
@@ -76,11 +79,16 @@ public:
         VoIPButton = new QPushButton(centralwidget);
         VoIPButton->setObjectName("VoIPButton");
         VoIPButton->setGeometry(QRect(1170, 520, 111, 111));
-        QIcon icon(QIcon::fromTheme(QIcon::ThemeIcon::CallStart));
-        VoIPButton->setIcon(icon);
+        QIcon icon1(QIcon::fromTheme(QIcon::ThemeIcon::CallStart));
+        VoIPButton->setIcon(icon1);
         ActiveVoice = new QLabel(centralwidget);
         ActiveVoice->setObjectName("ActiveVoice");
         ActiveVoice->setGeometry(QRect(1110, 520, 61, 21));
+        bAddFile = new QPushButton(centralwidget);
+        bAddFile->setObjectName("bAddFile");
+        bAddFile->setGeometry(QRect(650, 600, 31, 31));
+        QIcon icon2(QIcon::fromTheme(QIcon::ThemeIcon::MailAttachment));
+        bAddFile->setIcon(icon2);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -97,7 +105,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Encrypted chat", nullptr));
         SendButton->setText(QCoreApplication::translate("MainWindow", "Send", nullptr));
         IPEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "IP Address", nullptr));
         PortEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "Port Number", nullptr));
@@ -108,6 +116,7 @@ public:
 #endif // QT_CONFIG(tooltip)
         VoIPButton->setText(QString());
         ActiveVoice->setText(QString());
+        bAddFile->setText(QString());
     } // retranslateUi
 
 };

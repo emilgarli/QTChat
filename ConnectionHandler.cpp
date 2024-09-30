@@ -4,7 +4,7 @@
 #include "thread"
 #include "vector"
 
-#define MAX_READ_BUFFER_SIZE 500
+constexpr size_t MAX_READ_BUFFER_SIZE = 500;
 #define DEFAULT_NAME "DefaultUser"
 
 
@@ -146,7 +146,7 @@ int ConnectionHandler::listenThread() {
 int ConnectionHandler::dispatchConnectionThreads(CWizSSLSocket* socket, std::string clientName, int connectionType){
 
     if(connectionType == 0){
-        emit updateUI(QString::fromStdString("Connected to client: " + clientName));
+        emit updateUI(QString::fromStdString("Text chat started with: " + clientName));
         std::thread conThread(&ConnectionHandler::handleConnection, this, socket, clientName);
         conThread.detach();
         emit updateClientList(QString::fromStdString(clientName));
@@ -160,15 +160,28 @@ int ConnectionHandler::dispatchConnectionThreads(CWizSSLSocket* socket, std::str
         conThread.detach();
         return 0;
     }
+    else if(connectionType == 2){
+        //We don't have to update the ui to tell the user that a file transfer has been initiated
+        //All we do is create the instance, update the fileConMap, and we let the caller of the
+        //instance in the map deal with calling writeFile with an image in BYTE format
+        std::thread fileThread(&ConnectionHandler::handleFileTransfer, this, socket, clientName);
+        fileThread.detach();
+        return 0;
+    }
     return -1;
 }
 
 int ConnectionHandler::handleConnection(CWizSSLSocket* socket, std::string clientName){
     int iRet = 0;
-    ActiveConnection* connection = new ActiveConnection(this, socket);
-    //Add this connection to the map
-    conMap[clientName] = connection;
-    connection->setName(clientName);
+    ActiveConnection* connection = nullptr;
+    if(conMap.find(clientName) == conMap.end()){
+        connection = new ActiveConnection(this, socket);
+        conMap[clientName] = connection;
+    }
+    //If it already exist
+    else{
+        connection = conMap[clientName];
+    }
     //now that this is done, we can stay here and read any message comming to the socket
     while(true){
         Sleep(100);
@@ -191,4 +204,36 @@ int ConnectionHandler::handleConnection(CWizSSLSocket* socket, std::string clien
         }
     }
     return iRet;
+}
+
+int ConnectionHandler::handleFileTransfer(CWizSSLSocket* socket, std::string clientName){
+    int iRead = 0;
+    char inBuf[MAX_READ_BUFFER_SIZE];
+    int incImageSize = 0;
+    std::string imageName = "";
+
+    ActiveConnection* actCon = nullptr;
+    //If this client does not exist in the file connection map
+    if(fileConMap.find(clientName) == fileConMap.end()){
+        actCon = new ActiveConnection(this, socket);
+        fileConMap[clientName] = actCon;
+    }
+    //If it already exist
+    else{
+        actCon = fileConMap[clientName];
+    }
+    //First we read thee socket for incomming image metadata
+    while(iRead == 0){
+        actCon->readHandler(inBuf, MAX_READ_BUFFER_SIZE);
+    }
+    //Now we can delimit the incomming data, and read the size of the incomming image
+    std::vector<std::string> imageDataVec = delimitString(inBuf, MAX_READ_BUFFER_SIZE, ',');
+    incImageSize = stoi(imageDataVec.at(0));
+    imageName = imageDataVec.at(1);
+    //Allocate space for the image
+    BYTE* imBuf[incImageSize];
+    //Now we read the socket for any incomming image data
+    while(true){
+        actCon->readFile(imBuf, incImageSize);
+    }
 }
