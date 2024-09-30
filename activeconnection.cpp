@@ -29,6 +29,32 @@ int ActiveConnection::writeHandler(const char* outBuf, int bufLen){
     return iWrite;
 }
 
+//When reading a writing using openssl, it is important to note that
+//openssl only reads/writes 16kb in one record
+int ActiveConnection::writeFile(BYTE* bArray[], int bufLen){
+    socket->Write(reinterpret_cast<const char*>(bArray), bufLen);
+    return 0;
+}
+
+int ActiveConnection::readFile(BYTE* bArray[], int bufLen){
+    //here, we need a small workaround. If the connection reads 16384 bytes (16kb), there is probably
+    //more data left in the buffer
+    int iRead = 0;
+    int bytesRead = 0;
+    while(true){
+        iRead = socket->Read(bArray+bytesRead,bufLen);
+        if(iRead < 16384)
+            //If we read less than one openssl record, we are done reading
+            break;
+        else{
+            //bytesRead is the offset we start writing at in bArray
+            bytesRead += iRead;
+            iRead = 0;
+        }
+    }
+    return 0;
+}
+
 static int recordCallback(const void* inputBuffer, void* outputBuffer,
                           unsigned long framesPerBuffer,
                           const PaStreamCallbackTimeInfo* timeInfo,

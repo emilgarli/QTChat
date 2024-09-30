@@ -1,3 +1,5 @@
+build/
+
 #Crypto files
 *.pem
 *.crt

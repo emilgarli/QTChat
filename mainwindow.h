@@ -38,6 +38,8 @@ private slots:
 
     void on_VoIPButton_clicked();
 
+    void on_bAddFile_clicked();
+
 private:
     Ui::MainWindow *ui;
     ConnectionHandler* handler;
@@ -45,5 +47,8 @@ private:
     std::string myName = "";
     std::string IPAddress = "";
     int portNumber = -1;
+
+    bool newMesIsImage = false;
+    QString imgTag = "";
 };
 #endif // MAINWINDOW_H

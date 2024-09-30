@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include <QThread>
+#include <QFileDialog>
 #include "map"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -56,11 +57,27 @@ void MainWindow::on_SendButton_clicked()
     // Ensure currentClient is valid and exists in the map
     if (conMap.find(currentClient) != conMap.end()) {
         if(ui->sendEdit->toPlainText()!=""){
-            QString message = ui->sendEdit->toPlainText();
+            //If the message is not an image
+            if(!newMesIsImage){
+                QString message = ui->sendEdit->toPlainText();
 
-            conMap[currentClient]->writeHandler(message.toStdString().c_str(), message.length());
-            ui->OutWindow->append("[YOU]: " + message);
-            ui->sendEdit->clear();
+                conMap[currentClient]->writeHandler(message.toStdString().c_str(), message.length());
+                ui->OutWindow->append("[YOU]: " + message);
+                ui->sendEdit->clear();
+            }
+            //If the message is an image
+            else{
+                std::map<std::string, ActiveConnection*> fileConMap = handler->getFileConMap();
+                ui->OutWindow->insertHtml(imgTag);
+                ui->OutWindow->insertPlainText("\n");
+                ui->sendEdit->clear();
+                // Convert QString to QByteArray (Base64 encoding, if needed)
+                QByteArray outByte = imgTag.toUtf8().toBase64();  // Base64 encoded if necessary
+                BYTE* pByte = reinterpret_cast<byte*>(outByte.data());
+                // Pass the raw bytes to the writeFile function
+                fileConMap[currentClient]->writeFile(&pByte, sizeof(pByte));
+            }
+
         }
 
     } else {
@@ -93,7 +110,7 @@ void MainWindow::on_PortEdit_textEdited(const QString &arg1)
     portNumber = ui->PortEdit->text().toInt();
 }
 
-
+//Connects to the entered IP and Port Number
 void MainWindow::on_ConnectButton_clicked()
 {
     if(IPAddress != "" && portNumber >= 0){
@@ -111,7 +128,7 @@ void MainWindow::on_nameEdit_textChanged(const QString &arg1)
     handler->setUsername(myName);
 }
 
-
+//Attempts to start a voice chat witht he selected user
 void MainWindow::on_VoIPButton_clicked()
 {
     if(!voiceActive){
@@ -126,4 +143,31 @@ void MainWindow::on_VoIPButton_clicked()
     }
 
 }
+
+//Opens an explorer and lets the user select an image to send to a peer.
+//TODO:
+//Add support for multiple file types. not only images
+void MainWindow::on_bAddFile_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(
+        this, tr("Open Image"), "C:/Users", tr("Image Files (*.png *.jpg *.bmp)"));
+
+    if (!fileName.isEmpty()) {
+        // Load the image as a QPixmap to check if it is valid
+        QPixmap image(fileName);
+
+        // Check if the image is valid
+        if (!image.isNull()) {
+            imgTag = QString("<img src=\"%1\" width=\"100\" height=\"100\" />").arg(fileName);
+            ui->sendEdit->insertHtml(imgTag);
+            ui->sendEdit->insertPlainText("\n");
+            // Here we tell the send button that the message is an image, so that the log window OutWindow will
+            // know to display the image.
+            newMesIsImage = true;
+        } else {
+            ui->sendEdit->append("Failed to load image");
+        }
+    }
+}
+
 

@@ -1,6 +1,6 @@
 #include "cwizsslsocket.h"
 #include <openssl/applink.c>
-#include <openssl/err.h>
+#include <openssl/err.h>  // Required for OpenSSL error handling
 CWizSSLSocket::CWizSSLSocket(bool bIsServer) {
     isServer = bIsServer;
     create_context();
