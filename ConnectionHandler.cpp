@@ -252,6 +252,6 @@ int ConnectionHandler::handleFileTransfer(ActiveConnection* actCon, CWizSSLSocke
     //Now we read the socket for any incomming image data
     actCon->readFile(imBuf, incImageSize);
     QByteArray imageData(reinterpret_cast<char*>(imBuf), incImageSize);
-    emit updateUI(imageData);
+    emit showImage(imageData);
     return 0;
 }
