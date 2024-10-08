@@ -48,17 +48,18 @@ int ConnectionHandler::connectToPeer(std::string sIPAddress, int iPortNum, int c
         emit updateUI("You must set a username first");
         return 1;
     }
-    CWizSSLSocket* conSock = new CWizSSLSocket(false);
 
+    CWizReadWriteSocket* conSock = new CWizReadWriteSocket();
+    CWizSSLSocket* sslSock = new CWizSSLSocket(false);
     //Need to convert the IP address to LPCTSTR, because rawsocket is oldschool
     std::wstring wstr = std::wstring(sIPAddress.begin(), sIPAddress.end());
     try{
         if(!conSock->Connect(wstr.c_str(), iPortNum)){
             emit updateUI("Failed to connect to " + QString::number(iPortNum) + " at " + QString::fromStdString(sIPAddress));
             return 1;
-            conSock->SetSocket(conSock->H());
-            conSock->SSL_Connect();
         }
+        sslSock->SetSocket(conSock->H());
+        sslSock->SSL_Connect();
     }
     catch(...){
         emit updateUI("Some error occured when attempting to connect");
@@ -80,7 +81,15 @@ int ConnectionHandler::startComs(CWizSSLSocket* conSock, int connectionType){
     while(iRead == 0){
         iRead = conSock->Read(inBuf, 50);
     }
+    if(iRead < 0){
+        emit updateUI("Failed to connect to this host");
+        delete conSock;
+        return -1;
+    }
     peerInfoVec = delimitString(inBuf,iRead, ',');
+    if(peerInfoVec.size() < 3){
+        emit updateUI("Error in protocol. No valid client data received.");
+    }
     //The first element is the name
     clientName = peerInfoVec.at(0);
     //0 = text chat, 1 = voice chat, 2 = file transfer
@@ -136,9 +145,15 @@ int ConnectionHandler::listenThread() {
         char inBuf[50]{};
         int iRead = 0;
         while(iRead == 0){
+            // inBuf = [userName,connectionType]
             iRead = socket->Read(inBuf, 50);
         }
         clientInfoVec = delimitString(inBuf,iRead, ',');
+        if(clientInfoVec.size() < 3){
+            emit updateUI("Error in protocol. No valid client data received.");
+            delete socket;
+            return -1;
+        }
         dispatchConnectionThreads(socket, clientInfoVec.at(0) ,stoi(clientInfoVec.at(1)));
     }
 }
