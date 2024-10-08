@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent)
     // Create a separate thread for the connection handler
     QThread *thread = new QThread(this);
     handler->moveToThread(thread);
-
     // Connect signal from ConnectionHandler to MainWindow slot
     connect(handler, &ConnectionHandler::updateUI, this, &MainWindow::handleUpdateUI);
     connect(handler, &ConnectionHandler::updateClientList, this, &MainWindow::handleUpdateClientList);
