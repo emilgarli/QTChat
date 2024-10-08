@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 #include <QThread>
 #include <QFileDialog>
+#include <QBuffer>
 #include "map"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -49,6 +50,30 @@ void MainWindow::handleUpdateUI(const QString &message) {
     ui->OutWindow->append(message);
 }
 
+void MainWindow::handleShowImage(const QByteArray &imageBuffer) {
+    QPixmap p;
+    if (p.loadFromData(imageBuffer, "PNG")) {
+        // Convert QPixmap to base64
+        QByteArray byteArray;
+        QBuffer buffer(&byteArray);
+        buffer.open(QIODevice::WriteOnly);
+        p.save(&buffer, "PNG");  // Save the pixmap into the buffer as PNG
+
+        // Encode the image in base64
+        QString base64Image = QString::fromLatin1(byteArray.toBase64().data());
+
+        // Create the HTML image tag with the base64 data
+        QString imgTag = QString("<img src=\"data:image/png;base64,%1\" width=\"100\" height=\"100\" />").arg(base64Image);
+
+        // Insert the image into the QTextEdit (sendEdit)
+        ui->sendEdit->insertHtml(imgTag);
+        ui->sendEdit->insertPlainText("\n");  // Add a newline for formatting
+    } else {
+        ui->OutWindow->append("Failed to load image from data.");
+    }
+}
+
+
 void MainWindow::on_SendButton_clicked()
 {
     // Get the current client’s ActiveConnection from the handler
@@ -67,6 +92,7 @@ void MainWindow::on_SendButton_clicked()
             }
             //If the message is an image
             else{
+                handler->connectToPeer(IPAddress,portNumber,2);
                 std::map<std::string, ActiveConnection*> fileConMap = handler->getFileConMap();
                 ui->OutWindow->insertHtml(imgTag);
                 ui->OutWindow->insertPlainText("\n");

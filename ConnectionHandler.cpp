@@ -58,13 +58,14 @@ int ConnectionHandler::connectToPeer(std::string sIPAddress, int iPortNum, int c
             emit updateUI("Failed to connect to " + QString::number(iPortNum) + " at " + QString::fromStdString(sIPAddress));
             return 1;
         }
+
         sslSock->SetSocket(conSock->H());
         sslSock->SSL_Connect();
     }
     catch(...){
         emit updateUI("Some error occured when attempting to connect");
     }
-    startComs(conSock, connectionType);
+    startComs(sslSock, connectionType);
     return 0;
 }
 //This methods reads info about the newly connected client, and writes info about us to the client
@@ -87,7 +88,7 @@ int ConnectionHandler::startComs(CWizSSLSocket* conSock, int connectionType){
         return -1;
     }
     peerInfoVec = delimitString(inBuf,iRead, ',');
-    if(peerInfoVec.size() < 3){
+    if(peerInfoVec.size() < 1){
         emit updateUI("Error in protocol. No valid client data received.");
     }
     //The first element is the name
@@ -149,9 +150,10 @@ int ConnectionHandler::listenThread() {
             iRead = socket->Read(inBuf, 50);
         }
         clientInfoVec = delimitString(inBuf,iRead, ',');
-        if(clientInfoVec.size() < 3){
+        if(clientInfoVec.size() < 2){
             emit updateUI("Error in protocol. No valid client data received.");
             delete socket;
+            delete serversocket;
             return -1;
         }
         dispatchConnectionThreads(socket, clientInfoVec.at(0) ,stoi(clientInfoVec.at(1)));
@@ -179,7 +181,17 @@ int ConnectionHandler::dispatchConnectionThreads(CWizSSLSocket* socket, std::str
         //We don't have to update the ui to tell the user that a file transfer has been initiated
         //All we do is create the instance, update the fileConMap, and we let the caller of the
         //instance in the map deal with calling writeFile with an image in BYTE format
-        std::thread fileThread(&ConnectionHandler::handleFileTransfer, this, socket, clientName);
+        ActiveConnection* actCon = nullptr;
+        //If this client does not exist in the file connection map
+        if(fileConMap.find(clientName) == fileConMap.end()){
+            actCon = new ActiveConnection(this, socket);
+            fileConMap[clientName] = actCon;
+        }
+        //If it already exist
+        else{
+            actCon = fileConMap[clientName];
+        }
+        std::thread fileThread(&ConnectionHandler::handleFileTransfer, this, actCon, socket, clientName);
         fileThread.detach();
         return 0;
     }
@@ -221,23 +233,13 @@ int ConnectionHandler::handleConnection(CWizSSLSocket* socket, std::string clien
     return iRet;
 }
 
-int ConnectionHandler::handleFileTransfer(CWizSSLSocket* socket, std::string clientName){
+int ConnectionHandler::handleFileTransfer(ActiveConnection* actCon, CWizSSLSocket* socket, std::string clientName){
     int iRead = 0;
     char inBuf[MAX_READ_BUFFER_SIZE];
     int incImageSize = 0;
     std::string imageName = "";
 
-    ActiveConnection* actCon = nullptr;
-    //If this client does not exist in the file connection map
-    if(fileConMap.find(clientName) == fileConMap.end()){
-        actCon = new ActiveConnection(this, socket);
-        fileConMap[clientName] = actCon;
-    }
-    //If it already exist
-    else{
-        actCon = fileConMap[clientName];
-    }
-    //First we read thee socket for incomming image metadata
+    //First we read the socket for incomming image metadata
     while(iRead == 0){
         actCon->readHandler(inBuf, MAX_READ_BUFFER_SIZE);
     }
@@ -248,7 +250,8 @@ int ConnectionHandler::handleFileTransfer(CWizSSLSocket* socket, std::string cli
     //Allocate space for the image
     BYTE* imBuf[incImageSize];
     //Now we read the socket for any incomming image data
-    while(true){
-        actCon->readFile(imBuf, incImageSize);
-    }
+    actCon->readFile(imBuf, incImageSize);
+    QByteArray imageData(reinterpret_cast<char*>(imBuf), incImageSize);
+    emit updateUI(imageData);
+    return 0;
 }

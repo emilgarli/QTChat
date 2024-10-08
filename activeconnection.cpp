@@ -41,7 +41,7 @@ int ActiveConnection::readFile(BYTE* bArray[], int bufLen){
     //more data left in the buffer
     int iRead = 0;
     int bytesRead = 0;
-    while(true){
+    while(bytesRead != bufLen){
         iRead = socket->Read(bArray+bytesRead,bufLen);
         if(iRead < 16384)
             //If we read less than one openssl record, we are done reading
@@ -49,10 +49,9 @@ int ActiveConnection::readFile(BYTE* bArray[], int bufLen){
         else{
             //bytesRead is the offset we start writing at in bArray
             bytesRead += iRead;
-            iRead = 0;
         }
     }
-    return 0;
+    return bytesRead + iRead;
 }
 
 static int recordCallback(const void* inputBuffer, void* outputBuffer,
