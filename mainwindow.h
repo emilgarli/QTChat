@@ -18,6 +18,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void handleUpdateUI(const QString &message);
+    void handleShowImage(const QByteArray &imageData);
     void handleUpdateClientList(const QString &clientName);
     void handleRemoveFromClientList(const QString &clientName);
     bool voiceActive = false;
@@ -45,8 +46,8 @@ private:
     ConnectionHandler* handler;
     std::string currentClient = "";
     std::string myName = "";
-    std::string IPAddress = "";
-    int portNumber = -1;
+    std::string IPAddress = "10.0.0.24";
+    int portNumber = 17590;
 
     bool newMesIsImage = false;
     QString imgTag = "";

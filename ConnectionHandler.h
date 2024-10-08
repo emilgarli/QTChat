@@ -26,7 +26,7 @@ public:
     void setUsername(std::string name);
     int startComs(CWizSSLSocket* conSock, int connectionType);
     int dispatchConnectionThreads(CWizSSLSocket* socket, std::string clientName, int connectionType);
-    int handleFileTransfer(CWizSSLSocket* socket, std::string clientName);
+    int handleFileTransfer(ActiveConnection* actCon, CWizSSLSocket* socket, std::string clientName);
 private:
     //Map all active text connections
     std::map<std::string, ActiveConnection*> conMap;
@@ -39,6 +39,7 @@ private:
     int portNumber = PRIMARY_PORT;
 signals:
     void updateUI(const QString &message);
+    void showImage(const QByteArray &imageData);
     void updateClientList(const QString &clientName);
     void removeFromClientList(const QString &clientName);
 };
