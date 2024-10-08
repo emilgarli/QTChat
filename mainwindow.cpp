@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(handler, &ConnectionHandler::updateUI, this, &MainWindow::handleUpdateUI);
     connect(handler, &ConnectionHandler::updateClientList, this, &MainWindow::handleUpdateClientList);
     connect(handler, &ConnectionHandler::removeFromClientList, this, &MainWindow::handleRemoveFromClientList);
+    connect(handler, &ConnectionHandler::showImage, this, &MainWindow::handleShowImage);
     // Start the thread
     thread->start();
 }
