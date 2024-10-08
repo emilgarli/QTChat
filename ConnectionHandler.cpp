@@ -63,6 +63,8 @@ int ConnectionHandler::connectToPeer(std::string sIPAddress, int iPortNum, int c
         sslSock->SSL_Connect();
     }
     catch(...){
+        delete sslSock;
+        delete conSock;
         emit updateUI("Some error occured when attempting to connect");
     }
     startComs(sslSock, connectionType);
@@ -94,7 +96,7 @@ int ConnectionHandler::startComs(CWizSSLSocket* conSock, int connectionType){
     //The first element is the name
     clientName = peerInfoVec.at(0);
     //0 = text chat, 1 = voice chat, 2 = file transfer
-    return dispatchConnectionThreads(conSock, clientName, connectionType);
+    return dispatchConnectionThreads(conSock, clientName, connectionType, false);
 }
 
 //Listens for incomming connections on PRIMARY_PORT or SECONDARY_PORT
@@ -134,6 +136,8 @@ int ConnectionHandler::listenThread() {
 
         if (WSAGetLastError() != 0) {
             emit updateUI("Socket error occurred");
+            delete socket;
+            delete serversocket;
             continue;
         }
 
@@ -156,11 +160,11 @@ int ConnectionHandler::listenThread() {
             delete serversocket;
             return -1;
         }
-        dispatchConnectionThreads(socket, clientInfoVec.at(0) ,stoi(clientInfoVec.at(1)));
+        dispatchConnectionThreads(socket, clientInfoVec.at(0) ,stoi(clientInfoVec.at(1)), true);
     }
 }
 
-int ConnectionHandler::dispatchConnectionThreads(CWizSSLSocket* socket, std::string clientName, int connectionType){
+int ConnectionHandler::dispatchConnectionThreads(CWizSSLSocket* socket, std::string clientName, int connectionType, bool isListener){
 
     if(connectionType == 0){
         emit updateUI(QString::fromStdString("Text chat started with: " + clientName));
@@ -191,8 +195,12 @@ int ConnectionHandler::dispatchConnectionThreads(CWizSSLSocket* socket, std::str
         else{
             actCon = fileConMap[clientName];
         }
-        std::thread fileThread(&ConnectionHandler::handleFileTransfer, this, actCon, socket, clientName);
-        fileThread.detach();
+        //If this is called by connectToPeer, we don't start listening for incomming file data
+        //Instead, we just add the connection to the fileConMap, and let mainwindow deal with sending the data
+        if(isListener){
+            std::thread fileThread(&ConnectionHandler::handleFileTransfer, this, actCon, socket, clientName);
+            fileThread.detach();
+        }
         return 0;
     }
     return -1;

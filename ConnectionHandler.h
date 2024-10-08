@@ -25,7 +25,7 @@ public:
     std::map<std::string, ActiveConnection*> getFileConMap(){return fileConMap;}
     void setUsername(std::string name);
     int startComs(CWizSSLSocket* conSock, int connectionType);
-    int dispatchConnectionThreads(CWizSSLSocket* socket, std::string clientName, int connectionType);
+    int dispatchConnectionThreads(CWizSSLSocket* socket, std::string clientName, int connectionType, bool isListener);
     int handleFileTransfer(ActiveConnection* actCon, CWizSSLSocket* socket, std::string clientName);
 private:
     //Map all active text connections
