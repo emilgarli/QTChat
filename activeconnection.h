@@ -19,8 +19,8 @@ public:
     int readHandler(char* inBuf, int bufLen);
     int writeHandler(const char* outBuf, int bufLen);
     //Method to handle the transfer of files
-    int writeFile(BYTE* bArray[], int bufLen);
-    int readFile(BYTE* bArray[], int bufLen);
+    int writeFile(const char* bArray, int bufLen);
+    int readFile(void* bArray, int bufLen);
     //These last methods are related to voice chat
     int voiceChatHandler(CWizSSLSocket* socket, std::string clientName);
     static int paCallback(const void* inputBuffer,
