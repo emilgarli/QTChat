@@ -158,7 +158,7 @@ int ConnectionHandler::listenThread() {
             emit updateUI("Error in protocol. No valid client data received.");
             delete socket;
             delete serversocket;
-            return -1;
+            continue;
         }
         dispatchConnectionThreads(socket, clientInfoVec.at(0) ,stoi(clientInfoVec.at(1)), true);
     }
@@ -249,17 +249,17 @@ int ConnectionHandler::handleFileTransfer(ActiveConnection* actCon, CWizSSLSocke
 
     //First we read the socket for incomming image metadata
     while(iRead == 0){
-        actCon->readHandler(inBuf, MAX_READ_BUFFER_SIZE);
+        iRead = actCon->readHandler(inBuf, MAX_READ_BUFFER_SIZE);
     }
     //Now we can delimit the incomming data, and read the size of the incomming image
     std::vector<std::string> imageDataVec = delimitString(inBuf, MAX_READ_BUFFER_SIZE, ',');
     incImageSize = stoi(imageDataVec.at(0));
     imageName = imageDataVec.at(1);
     //Allocate space for the image
-    BYTE* imBuf[incImageSize];
+    BYTE* imBuf[250000];
     //Now we read the socket for any incomming image data
-    actCon->readFile(imBuf, incImageSize);
-    QByteArray imageData(reinterpret_cast<char*>(imBuf), incImageSize);
+    int imRead = actCon->readFile(imBuf, 250000);
+    QByteArray imageData(reinterpret_cast<char*>(imBuf), imRead);
     emit showImage(imageData);
     return 0;
 }

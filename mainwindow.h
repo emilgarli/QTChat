@@ -48,6 +48,7 @@ private:
     std::string myName = "";
     std::string IPAddress = "10.0.0.24";
     int portNumber = 17590;
+    QByteArray rawImageData;
 
     bool newMesIsImage = false;
     QString imgTag = "";

@@ -4,6 +4,8 @@
 #include <QFileDialog>
 #include <QBuffer>
 #include "map"
+#include <string>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -51,27 +53,38 @@ void MainWindow::handleUpdateUI(const QString &message) {
 }
 
 void MainWindow::handleShowImage(const QByteArray &imageBuffer) {
-    QPixmap p;
-    if (p.loadFromData(imageBuffer, "PNG")) {
-        // Convert QPixmap to base64
-        QByteArray byteArray;
-        QBuffer buffer(&byteArray);
-        buffer.open(QIODevice::WriteOnly);
-        p.save(&buffer, "PNG");  // Save the pixmap into the buffer as PNG
 
-        // Encode the image in base64
-        QString base64Image = QString::fromLatin1(byteArray.toBase64().data());
+    if (!imageBuffer.isEmpty()) {
+        // Decode the image from base64
+        QByteArray decodedImage = QByteArray::fromBase64(imageBuffer);
 
-        // Create the HTML image tag with the base64 data
-        QString imgTag = QString("<img src=\"data:image/png;base64,%1\" width=\"100\" height=\"100\" />").arg(base64Image);
+        // Load the image from the decoded QByteArray
+        QPixmap image;
+        if (image.loadFromData(decodedImage)) {
+            // Convert the QPixmap to base64
+            QByteArray byteArray;
+            QBuffer buffer(&byteArray);
+            buffer.open(QIODevice::WriteOnly);
+            image.save(&buffer, "PNG");
 
-        // Insert the image into the QTextEdit (sendEdit)
-        ui->sendEdit->insertHtml(imgTag);
-        ui->sendEdit->insertPlainText("\n");  // Add a newline for formatting
-    } else {
-        ui->OutWindow->append("Failed to load image from data.");
+            // Encode the image in base64 format for HTML insertion
+            QString base64Image = QString::fromLatin1(byteArray.toBase64().data());
+
+            // Create the HTML image tag using the base64 encoded image
+            QString imgTag = QString("<img src=\"data:image/png;base64,%1\" width=\"100\" height=\"100\" />").arg(base64Image);
+
+            // Insert the image tag into the QTextEdit (sendEdit)
+            ui->sendEdit->insertHtml(imgTag);
+            ui->sendEdit->insertPlainText("\n");
+
+            // Mark that the message is an image
+            newMesIsImage = true;
+        } else {
+            ui->sendEdit->append("Failed to load image from QByteArray");
+        }
     }
 }
+
 
 
 void MainWindow::on_SendButton_clicked()
@@ -92,18 +105,21 @@ void MainWindow::on_SendButton_clicked()
             }
             //If the message is an image
             else{
-                handler->connectToPeer(IPAddress,portNumber,2);
+                handler->connectToPeer(IPAddress, portNumber, 2);
                 std::map<std::string, ActiveConnection*> fileConMap = handler->getFileConMap();
                 ui->OutWindow->insertHtml(imgTag);
                 ui->OutWindow->insertPlainText("\n");
-                ui->sendEdit->clear();
-                // Convert QString to QByteArray (Base64 encoding, if needed)
-                QByteArray outByte = imgTag.toUtf8().toBase64();  // Base64 encoded if necessary
-                BYTE* pByte = reinterpret_cast<byte*>(outByte.data());
-                // Pass the raw bytes to the writeFile function
-                fileConMap[currentClient]->writeFile(&pByte, sizeof(pByte));
-            }
 
+                ui->sendEdit->clear();
+                handleShowImage(rawImageData);
+
+                std::string metaData = std::to_string(rawImageData.size());
+
+                metaData += ",imgName";
+                fileConMap[currentClient]->writeHandler(metaData.c_str(), metaData.length());
+                fileConMap[currentClient]->writeFile(rawImageData.data(), rawImageData.size());
+            }
+            newMesIsImage = false;
         }
 
     } else {
@@ -187,6 +203,13 @@ void MainWindow::on_bAddFile_clicked()
             imgTag = QString("<img src=\"%1\" width=\"100\" height=\"100\" />").arg(fileName);
             ui->sendEdit->insertHtml(imgTag);
             ui->sendEdit->insertPlainText("\n");
+            //Read the actual file and get the raw image data
+            //We will access it in the send button handler, and pass it along to the socket
+            QFile file(fileName);
+            if (file.open(QIODevice::ReadOnly)) {
+                rawImageData = file.readAll().toBase64();
+                file.close();
+            }
             // Here we tell the send button that the message is an image, so that the log window OutWindow will
             // know to display the image.
             newMesIsImage = true;
