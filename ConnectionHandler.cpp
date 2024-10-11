@@ -256,9 +256,9 @@ int ConnectionHandler::handleFileTransfer(ActiveConnection* actCon, CWizSSLSocke
     incImageSize = stoi(imageDataVec.at(0));
     imageName = imageDataVec.at(1);
     //Allocate space for the image
-    BYTE* imBuf[250000];
+    BYTE* imBuf[incImageSize];
     //Now we read the socket for any incomming image data
-    int imRead = actCon->readFile(imBuf, 250000);
+    int imRead = actCon->readFile(imBuf, incImageSize);
     QByteArray imageData(reinterpret_cast<char*>(imBuf), imRead);
     emit updateUI("[" + QString::fromStdString(clientName) + "]: ");
     emit showImage(imageData);
