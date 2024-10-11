@@ -232,7 +232,7 @@ int ConnectionHandler::handleConnection(CWizSSLSocket* socket, std::string clien
             emit updateUI(QString::fromStdString("Client " + clientName+ " disconnected."));
             iRet = -1;
             emit removeFromClientList(QString::fromStdString(clientName));
-            conMap.erase("clientName");
+            conMap.erase(clientName);
             delete socket;
             delete connection;
             break;

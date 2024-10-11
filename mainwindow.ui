@@ -73,7 +73,7 @@
      </rect>
     </property>
     <property name="placeholderText">
-     <string>IP Address</string>
+     <string>10.0.0.24</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="PortEdit">
@@ -86,7 +86,7 @@
      </rect>
     </property>
     <property name="placeholderText">
-     <string>Port Number</string>
+     <string>17590</string>
     </property>
    </widget>
    <widget class="QPushButton" name="ConnectButton">

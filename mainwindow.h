@@ -45,7 +45,7 @@ private:
     Ui::MainWindow *ui;
     ConnectionHandler* handler;
     std::string currentClient = "";
-    std::string myName = "";
+    std::string myName = "Default User";
     std::string IPAddress = "10.0.0.24";
     int portNumber = 17590;
     QByteArray rawImageData;
