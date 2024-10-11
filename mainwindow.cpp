@@ -73,9 +73,8 @@ void MainWindow::handleShowImage(const QByteArray &imageBuffer) {
             // Create the HTML image tag using the base64 encoded image
             QString imgTag = QString("<img src=\"data:image/png;base64,%1\" width=\"100\" height=\"100\" />").arg(base64Image);
 
-            // Insert the image tag into the QTextEdit (sendEdit)
-            ui->sendEdit->insertHtml(imgTag);
-            ui->sendEdit->insertPlainText("\n");
+            ui->OutWindow->insertHtml(imgTag);
+            ui->OutWindow->insertPlainText("\n");
 
             // Mark that the message is an image
             newMesIsImage = true;
@@ -107,11 +106,11 @@ void MainWindow::on_SendButton_clicked()
             else{
                 handler->connectToPeer(IPAddress, portNumber, 2);
                 std::map<std::string, ActiveConnection*> fileConMap = handler->getFileConMap();
+                ui->OutWindow->append("[YOU]: ");
                 ui->OutWindow->insertHtml(imgTag);
                 ui->OutWindow->insertPlainText("\n");
 
                 ui->sendEdit->clear();
-                handleShowImage(rawImageData);
 
                 std::string metaData = std::to_string(rawImageData.size());
 
