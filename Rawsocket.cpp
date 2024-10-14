@@ -578,57 +578,58 @@ int CWizReadWriteSocket::WriteString(const char* lpszString, int nLen /* = -1*/)
 }
 //*****************************************************************
 //##ModelId=43CE16C8024B
-/*
+
 BOOL CWizSyncSocket::GetHostName(LPTSTR lpszAddress, size_t nAddrSize, UINT& rSocketPort)
 {
-	m_iLastError = 0;
-	if (nAddrSize < 1)
-		return FALSE;
+    m_iLastError = 0;
+    if (nAddrSize < 1)
+        return FALSE;
 
-	*lpszAddress = '\0';
-	SOCKADDR_IN sockAddr;
-	memset(&sockAddr, 0, sizeof(sockAddr));
-	socklen_t nSockAddrLen = sizeof(sockAddr);
-	int r;
+    *lpszAddress = '\0';
+    SOCKADDR_IN sockAddr;
+    memset(&sockAddr, 0, sizeof(sockAddr));
+    socklen_t nSockAddrLen = sizeof(sockAddr);
 
-	while ((r = ::getsockname(m_hSocket, (SOCKADDR*)&sockAddr, &nSockAddrLen)) == SOCKET_ERROR)
-	{
-		m_iLastError = ::WSAGetLastError();
-		if (m_iLastError != WSAEINPROGRESS)
-			return FALSE;
-	}
+    // Get the local address the socket is bound to
+    if (::getsockname(m_hSocket, (SOCKADDR*)&sockAddr, &nSockAddrLen) == SOCKET_ERROR) {
+        m_iLastError = ::WSAGetLastError();
+        return FALSE;
+    }
 
-	rSocketPort = ::ntohs(sockAddr.sin_port);
+    rSocketPort = ::ntohs(sockAddr.sin_port);  // Get port
 
-	char    szName[64];
-	struct  hostent* h;
-	DWORD	dwMyAddress;
+    // Get the local hostname
+    char szName[NI_MAXHOST];
+    if (::gethostname(szName, sizeof(szName)) == SOCKET_ERROR) {
+        m_iLastError = ::WSAGetLastError();
+        return FALSE;
+    }
 
-	int r1;
-	while ((r1 = ::gethostname(szName, sizeof(szName))) == SOCKET_ERROR)
-	{
-		m_iLastError = ::WSAGetLastError();
-		if (m_iLastError != WSAEINPROGRESS)
-			return FALSE;
-	}
+    // Get the IP address for the local hostname using getaddrinfo (modern replacement for gethostbyname)
+    addrinfo hints = { 0 }, *result = nullptr;
+    hints.ai_family = AF_INET; // IPv4 only; use AF_UNSPEC to support both IPv4 and IPv6
+    hints.ai_socktype = SOCK_STREAM;
 
-	h = (struct hostent*) ::gethostbyname(szName);
-	memcpy(&dwMyAddress, h->h_addr_list[0], sizeof(DWORD));
-	if (dwMyAddress == INADDR_NONE)
-		return FALSE;
-	struct   in_addr     tAddr;
-	memcpy(&tAddr, &dwMyAddress, sizeof(DWORD));
-	char* ptr = ::inet_ntoa(tAddr);
+    if (getaddrinfo(szName, nullptr, &hints, &result) != 0) {
+        m_iLastError = ::WSAGetLastError();
+        return FALSE;
+    }
 
-#ifdef _UNICODE
-	return ::MultiByteToWideChar(CP_ACP, 0, ptr, -1, lpszAddress, nAddrSize * sizeof(lpszAddress[0]));
-#else
-	if (size_t(lstrlen(ptr)) >= nAddrSize)
-		return FALSE;
-	lstrcpy(lpszAddress, ptr);
-#endif
+    // Extract the IP address (in IPv4 case)
+    sockaddr_in* ipv4 = reinterpret_cast<sockaddr_in*>(result->ai_addr);
+    const char* ipStr = inet_ntoa(ipv4->sin_addr);
 
-	return TRUE;
+    // Clean up result
+    freeaddrinfo(result);
+
+
+    // Ensure buffer size is sufficient and copy the address
+    if (strlen(ipStr) >= nAddrSize) {
+        return FALSE;
+    }
+    strcpy_s(lpszAddress, nAddrSize, ipStr);
+
+    return TRUE;
 }
 //*****************************************************************
 //##ModelId=43CE16C8024F
@@ -653,19 +654,13 @@ BOOL CWizSyncSocket::GetPeerName(LPTSTR lpszAddress, size_t nAddrSize, UINT& rPe
 	rPeerPort = ntohs(sockAddr.sin_port);
 	char* pAddr = inet_ntoa(sockAddr.sin_addr);
 	int len = strlen(pAddr);
-#ifdef _UNICODE
-	char buff[100];
-	if (len >= 100 || len >= int(nAddrSize))
-		return FALSE;
-	memcpy(buff, pAddr, 100);
-	return ::MultiByteToWideChar(CP_ACP, 0, buff, len, lpszAddress, nAddrSize * sizeof(lpszAddress[0]));
-#else
+
 	if (size_t(len) >= nAddrSize)
 		return FALSE;
 	memcpy(lpszAddress, pAddr, len + 1);
-#endif
+
 	return TRUE;
-}*/
+}
 //*****************************************************************
 
 #ifdef _DEBUG

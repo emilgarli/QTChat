@@ -17,6 +17,9 @@
 #include <winsock.h>
 #endif
 
+
+
+
 class CWizSSLSocket : public CWizReadWriteSocket
 {
 public:

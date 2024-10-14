@@ -61,6 +61,9 @@ int ConnectionHandler::connectToPeer(std::string sIPAddress, int iPortNum, int c
 
         sslSock->SetSocket(conSock->H());
         sslSock->SSL_Connect();
+
+        std::string peerAddress = conSock->GetHostName();
+
     }
     catch(...){
         delete sslSock;

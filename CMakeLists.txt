@@ -70,6 +70,9 @@ target_link_libraries(ChattingApp PRIVATE ${CMAKE_SOURCE_DIR}/../libs/OpenSSL-Wi
 target_link_libraries(ChattingApp PRIVATE ${CMAKE_SOURCE_DIR}/../libs/OpenSSL-Win64/libcrypto-3-x64.dll)
 target_link_libraries(ChattingApp PRIVATE ${CMAKE_SOURCE_DIR}/../libs/OpenSSL-Win64/libssl-3-x64.dll)
 
+#Windows specific IP libs
+target_link_libraries(ChattingApp PRIVATE ws2_32 iphlpapi)
+
 # macOS bundle properties
 if(${QT_VERSION} VERSION_LESS 6.1.0)
     set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.ChattingApp)
