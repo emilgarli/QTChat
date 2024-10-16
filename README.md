@@ -2,15 +2,15 @@
 This is a peer-to-peer chat service which will support messaging, file sharing and voice calls. All fully end-to-end encrypted.
 # Setup
 You will need to create cryptographic certficates for both you and the peer, using the same certificate authority (CA). These are the openssl commands to do so:
-Create CA key:
+- Create CA key:
 openssl genpkey -algorithm RSA -out ca.pem -aes256 -pass pass:yourpassword -pkeyopt rsa_keygen_bits:4096
-Create CA self signed certificate:
+- Create CA self signed certificate:
 openssl req -x509 -new -key ca.pem -sha256 -days 3650 -out ca.pem -passin pass:yourpassword
-Server private key:
+- Server private key:
 openssl genpkey -algorithm RSA -out server.pem -pkeyopt rsa_keygen_bits:2048
-Certificate Sign Request:
+- Certificate Sign Request:
 openssl req -new -key server.key -out server.csr
-Now, create san.cnf and put it in you working directory. Put this in it:
+- Now, create san.cnf and put it in you working directory. Put this in it:
 [ req ]
 distinguished_name = req_distinguished_name
 x509_extensions = v3_req
@@ -31,7 +31,7 @@ DNS.1 = example.com
 DNS.2 = www.example.com
 IP.1 = 192.168.1.100 //Change this to the IP of the computer you are creating the certificate for
 
-Finally, we sign the certificate using the CA private key:
+- Finally, we sign the certificate using the CA private key:
 openssl x509 -req -in server.csr -CA ca.pem -CAkey ca.pem -CAcreateserial -out server.pem -days 365 -sha256 -extfile san.cnf -extensions v3_req -passin pass:yourpassword
 
 My other project, Auto CA, is currently under construction and upon completion will automate this process.
