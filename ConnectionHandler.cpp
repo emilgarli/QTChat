@@ -44,6 +44,7 @@ static std::vector<std::string> delimitString(const char* buffer, int bufLen, ch
 
 //Connects to the given IP and port number. connection type is: 0 = text chat, 1 = voice chat, 2 = file transfer
 int ConnectionHandler::connectToPeer(std::string sIPAddress, int iPortNum, int connectionType){
+
     if(username == DEFAULT_NAME){
         emit updateUI("You must set a username first");
         return 1;
@@ -178,7 +179,7 @@ int ConnectionHandler::dispatchConnectionThreads(CWizSSLSocket* socket, std::str
     }
     else if(connectionType == 1){
         emit updateUI("Voice chat incomming from " + QString::fromStdString(clientName));
-        ActiveConnection* actCon = new ActiveConnection();
+        ActiveConnection* actCon = new ActiveConnection(this, socket);
         voiceConMap[clientName] = actCon;
         std::thread conThread(&ActiveConnection::voiceChatHandler, actCon, socket, clientName);
         conThread.detach();

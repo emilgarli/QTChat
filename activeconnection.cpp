@@ -203,8 +203,8 @@ int ActiveConnection::paCallback(const void* inputBuffer,
     return paContinue;
 }
 void ActiveConnection::audioReader(std::vector<char>& buffer,
-                                    std::mutex& bufferMutex,
-                                    std::condition_variable& bufferCv)
+                                   std::mutex& bufferMutex,
+                                   std::condition_variable& bufferCv)
 {
     try {
         char tempBuffer[2048] = {};
