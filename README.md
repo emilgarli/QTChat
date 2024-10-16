@@ -11,6 +11,7 @@ openssl genpkey -algorithm RSA -out server.pem -pkeyopt rsa_keygen_bits:2048
 - Certificate Sign Request:
 openssl req -new -key server.key -out server.csr
 - Now, create san.cnf and put it in you working directory. Put this in it:
+
 [ req ]
 distinguished_name = req_distinguished_name
 x509_extensions = v3_req
